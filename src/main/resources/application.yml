@@ -8,6 +8,8 @@ spring:
 eureka:
   client:
     fetch-registry: true
+    healthcheck:
+      enabled: true
     service-url:
       defaultZone: http://root:123456@localhost:8761/eureka/
   instance:

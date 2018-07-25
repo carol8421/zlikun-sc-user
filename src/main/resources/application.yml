@@ -10,6 +10,12 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://root:123456@localhost:8761/eureka/
+  instance:
+    # 使用IP注册服务(而非主机名)
+    prefer-ip-address: true
+    # 配置监控端点(下面两项是默认值，如不需要修改则不用配置)
+    status-page-url-path: /actuator/info
+    health-check-url-path: /actuator/health
 logging:
   level:
     org.springframework.cloud: DEBUG

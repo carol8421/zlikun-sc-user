@@ -7,12 +7,9 @@ spring:
     active: default
 eureka:
   client:
+    fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    prefer-ip-address: true
-    metadata-map:
-      instanceId: ${spring.application.name}:${random.value}
+      defaultZone: http://root:123456@localhost:8761/eureka/
 logging:
   level:
     org.springframework.cloud: DEBUG

@@ -11,13 +11,13 @@ eureka:
     healthcheck:
       enabled: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka/
   instance:
-    # 使用IP注册服务(而非主机名)
     prefer-ip-address: true
-    # 配置监控端点(下面两项是默认值，如不需要修改则不用配置)
-    status-page-url-path: /actuator/info
-    health-check-url-path: /actuator/health
+    # 定义服务失效时间，默认：90，单位：秒
+    lease-expiration-duration-in-seconds: 90
+    # 定义服务续约任务调用间隔时间，默认：30，单位：秒
+    lease-renewal-interval-in-seconds: 30
 logging:
   level:
     org.springframework.cloud: DEBUG

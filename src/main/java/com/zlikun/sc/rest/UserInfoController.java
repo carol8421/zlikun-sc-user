@@ -1,9 +1,13 @@
 package com.zlikun.sc.rest;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.zlikun.sc.dto.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 模拟一个数据接口
@@ -40,6 +44,23 @@ public class UserInfoController {
     public void update(@PathVariable long userId, @RequestBody UserInfo user) {
         user.setUserId(userId);
         log.info("更新用户：{}", user);
+    }
+
+    /**
+     * 模拟搜索用户API
+     *
+     * @return
+     */
+    @GetMapping("/search")
+    @HystrixCommand(fallbackMethod = "searchFailure")
+    public List<UserInfo> search() {
+        log.info("搜索用户");
+        throw new RuntimeException("模拟出错情况");
+    }
+
+    public List<UserInfo> searchFailure() {
+        log.info("触发熔断，调用替代逻辑");
+        return new ArrayList<>();
     }
 
 }
